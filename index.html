@@ -1,16 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <title>Portfólio - Julya Barbosa</title>
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+    * {
+        transition: all .5s;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: black;
+        color: white;
+        font-family: "Poppins", serif;
+        font-weight: normal;
+        width: 100%;
+        height: 100%;
+    }
+
+    #designs {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 150px);
+        grid-template-rows: repeat(auto-fill, 150px);
+        gap: 10px;
+        width: 90%;
+        max-width: 1200px;
+    }
+
+    #designs>img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .main {
+        padding: 2rem 15vw;
+    }
+
+    .avatar {
+        border-radius: 100%;
+        height: 150px;
+    }
+
+    .presentation {
+        margin: 3rem 0;
+    }
+
+    .self {
+        display: flex;
+        gap: 64px;
+        align-items: center;
+    }
+
+    .inner-header {
+        display: flex;
+        gap: 16px;
+    }
+
+    .title {
+        font-size: 24px;
+        margin: 0;
+    }
+
+    .sub {
+        opacity: 0.75;
+        font-weight: 100;
+    }
+
+    #topic-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 32px;
+        margin: 2rem 0;
+    }
+</style>
 <script>
-    fetch('filestruct.json')
-        .then(e => e.json)
-        .then(console.log)
+    fetch('dashboard.json')
+        .then(e => e.json())
+        .then(designs => {
+            document.querySelector('#designs-qty').textContent = designs.length;
+            designs.forEach(design => {
+                console.log(design)
+                const image = document.createElement("img");
+                image.src = design.url;
+                document.querySelector('#designs').appendChild(image)
+            });
+        });
+    fetch('topics.json')
+        .then(e => e.json())
+        .then(topics => {
+            document.querySelector('#projects-qty').textContent = topics.length;
+        });
 </script>
+
 <body>
-    Teste commit 
+    <div class="main">
+        <div class="presentation">
+            <div class="self">
+                <img class="avatar" src="media/profile.png">
+                <div>
+                    <p class="title">Julya Barbosa</p>
+                    <span class="sub">Marketing & Design</span>
+                    <div class="inner-header">
+                        <p><span id="designs-qty">0</span> designs</p>
+                        <p><span id="projects-qty">0</span> projetos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="topic-header">
+            <span>Dashboard</span>
+            <span>Exemplo 1</span>
+            <span>Exemplo 2</span>
+        </div>
+        <div id="designs"></div>
+    </div>
 </body>
+
 </html>
